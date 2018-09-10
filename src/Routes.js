@@ -1,8 +1,10 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import AppliedRoute from './components/AppliedRoute';
+
 import StartPage from './StartPage'
 
-export default () =>
+export default ({childProps}) =>
   <Switch>
-    <Route path="/" exact component={ StartPage } />
+    <AppliedRoute path="/" exact component={StartPage} props={childProps} />
   </Switch>;
