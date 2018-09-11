@@ -1,18 +1,45 @@
 .App {
-  text-align: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.App--header {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4rem;
+
+  background-color: #C39738;
+  padding: 0.5rem 1rem;
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+.App--content {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 4rem);
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  color: #361F00;
 }
 
-.App-intro {
-  font-size: large;
+.App--title {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 3rem;
+  font-weight: normal;
+  color: white;
 }
+
+.App--title em {
+  font-weight: bold;
+  font-style: normal;
+}
+

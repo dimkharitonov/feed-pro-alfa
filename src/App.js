@@ -18,10 +18,12 @@ class App extends Component {
     };
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
+        <header className="App--header">
+          <h1 className="App--title">РИТЕЙЛ <em>ПРО</em></h1>
         </header>
-        <Routes childProps={ childProps } />
+        <div className="App--content">
+          <Routes childProps={ childProps } />
+        </div>
       </div>
     );
   }

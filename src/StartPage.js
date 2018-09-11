@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import * as Markdown from 'react-markdown';
 import './StartPage.css'
 
 export default class StartPage extends Component {
@@ -45,7 +46,7 @@ export default class StartPage extends Component {
   setItems(items) {
     if(this._isMounted) {
       this.setState({
-        items: this.filterItems(items.items),
+        items: this.sortByDate(this.filterItems(items.items)),
         isLoading: false,
         isLoaded: true
       });
@@ -74,9 +75,11 @@ export default class StartPage extends Component {
 
   filterItems = (items) => items.filter(item => this.matchContentByType(item));
 
+  sortByDate = items => items.sort((a, b) => new Date(b.fields.published) - new Date(a.fields.published));
+
   render() {
     return (
-      <div className="main-page">
+      <div className="items-list">
         { this.state.isLoading
           ? <div>Loading</div>
           : this.state.items.length === 0
@@ -88,43 +91,39 @@ export default class StartPage extends Component {
   }
 
   renderItems() {
-    return (
-      <div className="items">
-        {
-          this.state.items.map( item => {
+    return this.state.items.map( item => {
 
-            const id = item.sys.id;
-            const {
-              title,
-              published,
-              publisher,
-              cover,
-              spoiler
-            } = item.fields;
+      const id = item.sys.id;
+      const {
+        title,
+        published,
+        publisher,
+        cover,
+        spoiler,
+        period,
+        issue
+      } = item.fields;
 
-            switch(item.sys.contentType.sys.id) {
-              case 'article':
-                return this.renderArticleSnippet({id, title, published});
-              case 'report':
-                return this.renderReportSnippet({id, title, published, publisher, cover});
-              case 'disgest':
-                return this.renderDigestSnippet({id, title, published, publisher, cover, spoiler});
-              default:
-                return (
-                  <div>неправильный тип данных {item.sys.contentType.sys.id} </div>
-                )
-            }
-          })
-        }
-      </div>
-    )
+      switch(item.sys.contentType.sys.id) {
+        case 'article':
+          return this.renderArticleSnippet({id, title, published});
+        case 'report':
+          return this.renderReportSnippet({id, title, published, publisher, cover});
+        case 'disgest':
+          return this.renderDigestSnippet({id, title, published, publisher, cover, spoiler, period, issue });
+        default:
+          return (
+            <div>неправильный тип данных {item.sys.contentType.sys.id} </div>
+          )
+      }
+    })
   }
 
   renderArticleSnippet({id, title, published}) {
     return (
-      <div className="article-snippet" key={id}>
-        <div className="article-snippet--title">{title}</div>
-        <div>{published} | {id}</div>
+      <div className="article-snippet snippet" key={id}>
+        <div className="snippet--date">{this.formatDate(published)}</div>
+        <div className="snippet--title">{title}</div>
       </div>
     )
   }
@@ -132,25 +131,49 @@ export default class StartPage extends Component {
   renderReportSnippet({id, title, published, publisher, cover}) {
     console.log(cover.fields.file);
     return (
-      <div className="report-snippet" key={id}>
-        <div className="report-snippet--title">{title}</div>
-        <div className="report-snippet--publisher">{publisher}</div>
-        <div>{published}</div>
-        <div className="report-snippet--cover"><img src={cover.fields.file.url} alt={cover.fields.title}/></div>
+      <div className="report-snippet snippet" key={id}>
+        <div className="snippet--date">{this.formatDate(published)}</div>
+        <div className="pannels">
+          <div className="pannels--pannel left">
+            <div className="snippet--type"><span>ОТЧЕТ</span></div>
+            <div className="snippet--title">{title}</div>
+            <div className="snippet--publisher">{publisher}</div>
+          </div>
+          <div className="pannels--pannel right">
+            <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
+          </div>
+        </div>
       </div>
     )
   }
 
-  renderDigestSnippet({id, title, published, publisher, cover, spoiler}) {
+  renderDigestSnippet({id, title, published, publisher, cover, spoiler, period, issue}) {
     return (
-      <div className="digest-snippet" key={id}>
-        <div className="digest-snippet--title">{title}</div>
-        <div className="digest-snippet--publisher">{publisher}</div>
-        <div className="digest-snippet--spoiler">{spoiler}</div>
-        <div>{published}</div>
-        <div className="digest-snippet--cover"><img src={cover.fields.file.url} alt={cover.fields.title}/></div>
+      <div className="digest-snippet snippet" key={id}>
+        <div className="snippet--date">{period}</div>
+
+        <div className="pannels">
+          <div className="pannels--pannel left">
+            <div className="snippet--type"><span>ДАЙДЖЕСТ</span> выпуск {issue}</div>
+            <div className="snippet--title">
+              {title}
+              </div>
+            <div className="snippet--publisher">{publisher}</div>
+          </div>
+          <div className="pannels--pannel right">
+            <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
+          </div>
+        </div>
+
+        <div className="snippet--spoiler">{ this.renderMultiline(spoiler)}</div>
       </div>
     )
   }
 
+  formatDate = date => (new Date(date)).toLocaleDateString('ru-RU', {hour:'2-digit', minute:'2-digit'});
+
+  renderMultiline(text) {
+    const lines = text.split('\n');
+    return lines.map((line, idx) => <span key={idx}>{line}<br/></span>);
+  }
 }
