@@ -8,4 +8,8 @@ export default class Content {
   }
 
   requestItems = (resolve, reject) => this.client.getEntries().then(resolve).catch(reject);
+
+  requestItem = (resolve, reject, itemID) => this.client.getEntry(itemID).then(resolve).catch(reject);
+
+  formatDate = date => (new Date(date)).toLocaleDateString('ru-RU', {hour:'2-digit', minute:'2-digit'});
 }

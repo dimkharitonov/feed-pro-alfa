@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App--header">
-          <h1 className="App--title">РИТЕЙЛ <em>ПРО</em></h1>
+          <div className="App--title">РИТЕЙЛ <em>ПРО</em></div>
         </header>
         <div className="App--content">
           <Routes childProps={ childProps } />

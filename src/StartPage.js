@@ -121,7 +121,7 @@ export default class StartPage extends Component {
     return (
       <div className="article-snippet snippet" key={id}>
         <Link to={ `articles/${id}`}>
-          <div className="snippet--date">{this.formatDate(published)}</div>
+          <div className="snippet--date">{this.content.formatDate(published)}</div>
           <div className="snippet--title">{title}</div>
         </Link>
       </div>
@@ -132,7 +132,7 @@ export default class StartPage extends Component {
     return (
       <div className="report-snippet snippet" key={id}>
         <Link to={ `reports/${id}` }>
-          <div className="snippet--date">{this.formatDate(published)}</div>
+          <div className="snippet--date">{this.content.formatDate(published)}</div>
           <div className="pannels">
             <div className="pannels--pannel left">
               <div className="snippet--type"><span>ОТЧЕТ</span></div>
@@ -170,8 +170,6 @@ export default class StartPage extends Component {
       </div>
     )
   }
-
-  formatDate = date => (new Date(date)).toLocaleDateString('ru-RU', {hour:'2-digit', minute:'2-digit'});
 
   renderMultiline(text) {
     const lines = text.split('\n');

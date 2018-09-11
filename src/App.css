@@ -43,3 +43,91 @@
   font-style: normal;
 }
 
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 2rem;
+  align-items: center;
+}
+
+.header--backlink {
+  width: 32px;
+  text-align: left;
+}
+
+.header--backlink a {
+  color: #7F4311;
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+
+.header .header--title {
+  width: calc(100% - 32px);
+}
+
+.header--title, .header--title h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: #7F4311;
+  margin: 0;
+}
+
+.header--details {
+  font-size: 0.675rem;
+  font-weight: normal;
+  line-height: 1.25rem;
+  text-transform: none;
+  color: #222222;
+}
+
+.article--meta {
+  margin: 0.5rem 0;
+  background-color: #FFFF96;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.675rem;
+  font-weight: bolder;
+}
+
+.article--body {
+  font-size: 0.875rem;
+  padding: 0 0.25rem;
+}
+
+.article--body h2 {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.article .tags, .article .person {
+  margin: 0.75rem 0;
+}
+.article .tags--tag {
+  display: block;
+  text-transform: uppercase;
+}
+
+.article .tags--value {
+  margin-right: 1rem;
+  border-bottom: solid 2px #C39738;
+  color: #5E4318;
+}
+
+.article .persons--details {
+
+}
+
+.article .details--name span {
+  border-bottom: solid 2px #C39738;
+  color: #5E4318;
+}
+
+.article .details--title {
+  font-size: 0.675rem;
+  font-weight: normal;
+  line-height: 0.75rem;
+}
