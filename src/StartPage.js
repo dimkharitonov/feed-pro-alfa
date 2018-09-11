@@ -162,7 +162,7 @@ export default class StartPage extends Component {
               <div className="snippet--publisher">{publisher}</div>
             </div>
             <div className="pannels--pannel right">
-              <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
+              <div className="snippet--cover"><img src={cover.fields.file.url + '?w=192&h=192'} alt={cover.fields.title}/></div>
             </div>
           </div>
           <div className="snippet--spoiler">{ this.renderMultiline(spoiler)}</div>

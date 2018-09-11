@@ -1,0 +1,17 @@
+.report--summary {
+  padding: 1.5rem 1rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: rgba(0,0,0,0.87);
+}
+
+.slides--slide {
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.slides--slide img {
+  max-width: 18.75rem;
+  border: solid 1px rgba(195,151,56,0.1);
+}

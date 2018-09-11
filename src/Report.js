@@ -1,62 +1,65 @@
-import React, { Component } from 'react';
-//import * as Markdown from 'react-markdown';
+import React from 'react';
+import Article from './Article';
+import * as Markdown from 'react-markdown';
 import './Report.css'
+import {Link} from "react-router-dom";
+import {FaChevronLeft} from "react-icons/fa";
 
-export default class Article extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fields: [],
-      isLoading: false,
-      isLoaded: false,
-      error: ''
-    };
-
-    this._isMounted = false;
-    this.content = this.props.content;
-    this.reportID = this.props.match.params.id;
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-
-    this.setState({
-      isLoading: true
-    });
-    this.content.requestItems(this.setItems, this.reportError);
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  setItems(items) {
-    if(this._isMounted) {
-      this.setState({
-        isLoading: false,
-        isLoaded: true
-      });
-    } else {
-      console.log('component is not mounted');
-    }
-  }
-
-  reportError(error) {
-    this.setState({
-      error,
-      isLoading: false,
-      isLoaded: false
-    });
-
-    console.log('error with getting content', error);
-  }
+export default class Report extends Article {
 
   render() {
     return (
-      <div>
-        report { this.reportID }
-      </div>
+      this.state.isLoading
+        ? <div>Loading</div>
+        : this.state.fields.length === 0
+        ? <div>no items</div>
+        : this.renderReport()
     )
   }
+
+  renderReport() {
+    const {
+      title,
+      publisher,
+      published,
+      summary,
+      slides
+    } = this.state.fields;
+
+    return(
+      <div className="report">
+        <div className="article--header header">
+          <div className="header--backlink">
+            <Link to="/"><FaChevronLeft/></Link>
+          </div>
+          <div className="header--title">
+            <h1>{title}</h1>
+            <div className="header--details">
+              { this.content.formatDate(published) }
+            </div>
+            <div className="header--details">
+              Издатель <strong>{ publisher }</strong>
+            </div>
+          </div>
+        </div>
+
+        <div className="article--body">
+          <div className="report--summary">
+            <Markdown source={ summary }/>
+          </div>
+          <div className="report--slides">
+            {
+              slides.map((slide, idx) =>
+                <div className="slides--slide" key={idx}>
+                  <img src={slide.fields.file.url+'?w=600&h=600'} alt={slide.fields.file.title} />
+                </div>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    )
+  };
+
+
 };

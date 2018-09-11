@@ -1,0 +1,27 @@
+.summary {
+  padding: 1.5rem 1rem 0.5rem;
+}
+
+.summary a {
+  text-decoration: none;
+}
+
+.summary-item--title {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #222222;
+  font-weight: bolder;
+  margin-bottom: 0.5rem;
+}
+
+.summary-item--body, .summary--hr {
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: rgba(0,0,0,0.87);
+}
+
+.summary--hr {
+  font-weight: bold;
+  margin: 0.5rem 1rem;
+  text-align: center;
+}

@@ -74,7 +74,17 @@ export default class Article extends Component {
   }
 
   renderArticle() {
-    const { title, body, published, source, origin, companies, industries, persons, tags } = this.state.fields;
+    const {
+      title,
+      body,
+      published,
+      source,
+      origin,
+      companies,
+      industries,
+      persons,
+      tags
+    } = this.state.fields;
     return(
       <div className="article">
         <div className="article--header header">

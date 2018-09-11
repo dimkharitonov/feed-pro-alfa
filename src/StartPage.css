@@ -30,6 +30,10 @@
   line-height: 1.25rem;
 }
 
+.snippet--cover img {
+  max-width: 6rem;
+  max-height: 6rem;
+}
 .snippet--spoiler {
   font-size: 0.75rem;
 }

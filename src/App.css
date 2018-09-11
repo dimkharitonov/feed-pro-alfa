@@ -13,7 +13,7 @@
   width: 100%;
   height: 4rem;
 
-  background-color: #C39738;
+  background-color: #7F4311;
   padding: 0.5rem 1rem;
   color: white;
 }
@@ -27,7 +27,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
 
-  color: #361F00;
+  color: rgba(0,0,0,0.87);
 }
 
 .App--title {
@@ -41,6 +41,10 @@
 .App--title em {
   font-weight: bold;
   font-style: normal;
+}
+
+.article--header {
+  margin-top: 1.5rem;
 }
 
 .header {
@@ -84,7 +88,7 @@
 
 .article--meta {
   margin: 0.5rem 0;
-  background-color: #FFFF96;
+  background-color: rgba(195,151,56,0.1);
   border-radius: 4px;
   padding: 0.25rem 0.5rem;
   font-size: 0.675rem;

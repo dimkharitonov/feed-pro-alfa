@@ -1,62 +1,52 @@
-import React, { Component } from 'react';
-//import * as Markdown from 'react-markdown';
+import React from 'react';
 import './Digest.css'
+import {Link} from "react-router-dom";
+import Article from './Article';
+import {FaChevronLeft} from "react-icons/fa";
+import Summary from './components/Summary';
+import Articles from './components/Articles';
 
-export default class Article extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fields: [],
-      isLoading: false,
-      isLoaded: false,
-      error: ''
-    };
-
-    this._isMounted = false;
-    this.content = this.props.content;
-    this.digestID = this.props.match.params.id;
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-
-    this.setState({
-      isLoading: true
-    });
-    this.content.requestItems(this.setItems, this.reportError);
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  setItems(items) {
-    if(this._isMounted) {
-      this.setState({
-        isLoading: false,
-        isLoaded: true
-      });
-    } else {
-      console.log('component is not mounted');
-    }
-  }
-
-  reportError(error) {
-    this.setState({
-      error,
-      isLoading: false,
-      isLoaded: false
-    });
-
-    console.log('error with getting content', error);
-  }
+export default class Digest extends Article {
 
   render() {
     return (
-      <div>
-        digest { this.digestID }
+      this.state.isLoading
+        ? <div>Loading</div>
+        : this.state.fields.length === 0
+        ? <div>no items</div>
+        : this.renderDigest()
+    )
+  }
+
+  renderDigest() {
+    const {
+      title,
+      issue,
+      period,
+      summary,
+      articles
+    } = this.state.fields;
+    return(
+      <div className="article">
+        <div className="article--header header">
+          <div className="header--backlink">
+            <Link to="/"><FaChevronLeft/></Link>
+          </div>
+          <div className="header--title">
+            <div className="snippet--type"><span>ДАЙДЖЕСТ</span> выпуск {issue}</div>
+            <h1>{title}</h1>
+            <div className="header--details">
+              { period }
+            </div>
+          </div>
+        </div>
+
+        <div className="article--body">
+          <Summary data={summary}/>
+          <Articles data={articles} content={this.content}/>
+        </div>
       </div>
     )
   }
+
 };
