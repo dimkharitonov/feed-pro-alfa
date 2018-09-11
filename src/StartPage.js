@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import * as Markdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import './StartPage.css'
 
 export default class StartPage extends Component {
@@ -50,8 +50,6 @@ export default class StartPage extends Component {
         isLoading: false,
         isLoaded: true
       });
-
-      console.log('get content', items);
     } else {
       console.log('component is not mounted');
     }
@@ -122,27 +120,30 @@ export default class StartPage extends Component {
   renderArticleSnippet({id, title, published}) {
     return (
       <div className="article-snippet snippet" key={id}>
-        <div className="snippet--date">{this.formatDate(published)}</div>
-        <div className="snippet--title">{title}</div>
+        <Link to={ `articles/${id}`}>
+          <div className="snippet--date">{this.formatDate(published)}</div>
+          <div className="snippet--title">{title}</div>
+        </Link>
       </div>
     )
   }
 
   renderReportSnippet({id, title, published, publisher, cover}) {
-    console.log(cover.fields.file);
     return (
       <div className="report-snippet snippet" key={id}>
-        <div className="snippet--date">{this.formatDate(published)}</div>
-        <div className="pannels">
-          <div className="pannels--pannel left">
-            <div className="snippet--type"><span>ОТЧЕТ</span></div>
-            <div className="snippet--title">{title}</div>
-            <div className="snippet--publisher">{publisher}</div>
+        <Link to={ `reports/${id}` }>
+          <div className="snippet--date">{this.formatDate(published)}</div>
+          <div className="pannels">
+            <div className="pannels--pannel left">
+              <div className="snippet--type"><span>ОТЧЕТ</span></div>
+              <div className="snippet--title">{title}</div>
+              <div className="snippet--publisher">{publisher}</div>
+            </div>
+            <div className="pannels--pannel right">
+              <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
+            </div>
           </div>
-          <div className="pannels--pannel right">
-            <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
-          </div>
-        </div>
+        </Link>
       </div>
     )
   }
@@ -150,22 +151,22 @@ export default class StartPage extends Component {
   renderDigestSnippet({id, title, published, publisher, cover, spoiler, period, issue}) {
     return (
       <div className="digest-snippet snippet" key={id}>
-        <div className="snippet--date">{period}</div>
-
-        <div className="pannels">
-          <div className="pannels--pannel left">
-            <div className="snippet--type"><span>ДАЙДЖЕСТ</span> выпуск {issue}</div>
-            <div className="snippet--title">
-              {title}
+        <Link to={ `digests/${id}` }>
+          <div className="snippet--date">{period}</div>
+          <div className="pannels">
+            <div className="pannels--pannel left">
+              <div className="snippet--type"><span>ДАЙДЖЕСТ</span> выпуск {issue}</div>
+              <div className="snippet--title">
+                {title}
               </div>
-            <div className="snippet--publisher">{publisher}</div>
+              <div className="snippet--publisher">{publisher}</div>
+            </div>
+            <div className="pannels--pannel right">
+              <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
+            </div>
           </div>
-          <div className="pannels--pannel right">
-            <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
-          </div>
-        </div>
-
-        <div className="snippet--spoiler">{ this.renderMultiline(spoiler)}</div>
+          <div className="snippet--spoiler">{ this.renderMultiline(spoiler)}</div>
+        </Link>
       </div>
     )
   }
