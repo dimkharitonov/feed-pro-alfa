@@ -4,6 +4,7 @@ import * as Markdown from 'react-markdown';
 import './Report.css'
 import {Link} from "react-router-dom";
 import {FaChevronLeft} from "react-icons/fa";
+import Tags from "./components/Tags";
 
 export default class Report extends Article {
 
@@ -23,7 +24,10 @@ export default class Report extends Article {
       publisher,
       published,
       summary,
-      slides
+      slides,
+      indicators,
+      industries,
+      tags
     } = this.state.fields;
 
     return(
@@ -43,6 +47,12 @@ export default class Report extends Article {
           </div>
         </div>
 
+        <div className="article--meta">
+          <Tags data={indicators} name="Показатели" prefix="indicators"/>
+          <Tags data={industries} name="Отрасли" prefix="industries"/>
+          <Tags data={tags} name="Теги" prefix="tags"/>
+        </div>
+
         <div className="article--body">
           <div className="report--summary">
             <Markdown source={ summary }/>
@@ -51,7 +61,7 @@ export default class Report extends Article {
             {
               slides.map((slide, idx) =>
                 <div className="slides--slide" key={idx}>
-                  <img src={slide.fields.file.url+'?w=600&h=600'} alt={slide.fields.file.title} />
+                  <img src={slide.fields.file.url+'?w=544&h=544'} alt={slide.fields.file.title} />
                 </div>
               )
             }
@@ -60,6 +70,4 @@ export default class Report extends Article {
       </div>
     )
   };
-
-
 };

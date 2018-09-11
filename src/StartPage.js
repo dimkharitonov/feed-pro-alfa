@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './StartPage.css'
+import Tags from "./components/Tags";
 
 export default class StartPage extends Component {
 
@@ -99,14 +100,17 @@ export default class StartPage extends Component {
         cover,
         spoiler,
         period,
-        issue
+        issue,
+        companies,
+        tags,
+        indicators
       } = item.fields;
 
       switch(item.sys.contentType.sys.id) {
         case 'article':
-          return this.renderArticleSnippet({id, title, published});
+          return this.renderArticleSnippet({id, title, published, companies, tags});
         case 'report':
-          return this.renderReportSnippet({id, title, published, publisher, cover});
+          return this.renderReportSnippet({id, title, published, publisher, cover, indicators});
         case 'disgest':
           return this.renderDigestSnippet({id, title, published, publisher, cover, spoiler, period, issue });
         default:
@@ -117,18 +121,20 @@ export default class StartPage extends Component {
     })
   }
 
-  renderArticleSnippet({id, title, published}) {
+  renderArticleSnippet({id, title, published, companies, tags}) {
     return (
       <div className="article-snippet snippet" key={id}>
         <Link to={ `articles/${id}`}>
           <div className="snippet--date">{this.content.formatDate(published)}</div>
           <div className="snippet--title">{title}</div>
+          <Tags data={companies} name="" prefix="companies"/>
+          <Tags data={tags} name="" prefix="tags"/>
         </Link>
       </div>
     )
   }
 
-  renderReportSnippet({id, title, published, publisher, cover}) {
+  renderReportSnippet({id, title, published, publisher, cover, indicators}) {
     return (
       <div className="report-snippet snippet" key={id}>
         <Link to={ `reports/${id}` }>
@@ -143,6 +149,7 @@ export default class StartPage extends Component {
               <div className="snippet--cover"><img src={cover.fields.file.url + '?w=100&h=100'} alt={cover.fields.title}/></div>
             </div>
           </div>
+          <Tags data={indicators} name="" prefix="indicators"/>
         </Link>
       </div>
     )

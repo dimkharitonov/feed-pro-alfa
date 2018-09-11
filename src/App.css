@@ -7,6 +7,7 @@
 
 .App--header {
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
 
@@ -19,12 +20,9 @@
 }
 
 .App--content {
-  position: fixed;
-  top: 4rem;
-  left: 0;
+  position: relative;
+  margin-top: 4rem;
   width: 100%;
-  height: calc(100vh - 4rem);
-  overflow-y: scroll;
   overflow-x: hidden;
 
   color: rgba(0,0,0,0.87);
@@ -107,14 +105,30 @@
   text-transform: uppercase;
 }
 
+.tags {
+  font-size: 0.675rem;
+  font-weight: bolder;
+  line-height: 1rem;
+  color: #222222;
+  margin: 0.5rem 0;
+}
+
+.report .tags, .report .person,
 .article .tags, .article .person {
   margin: 0.75rem 0;
 }
+
+.tags--value {
+  margin-right: 1rem;
+}
+
+.report .tags--tag,
 .article .tags--tag {
   display: block;
   text-transform: uppercase;
 }
 
+.report .tags--value,
 .article .tags--value {
   margin-right: 1rem;
   border-bottom: solid 2px #C39738;
