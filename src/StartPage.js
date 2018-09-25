@@ -110,7 +110,7 @@ export default class StartPage extends Component {
         case 'article':
           return this.renderArticleSnippet({id, title, published, companies, tags});
         case 'report':
-          return this.renderReportSnippet({id, title, published, publisher, cover, indicators});
+          return this.renderReportSnippet({id, title, published, publisher, cover, indicators, companies});
         case 'disgest':
           return this.renderDigestSnippet({id, title, published, publisher, cover, spoiler, period, issue });
         default:
@@ -134,7 +134,7 @@ export default class StartPage extends Component {
     )
   }
 
-  renderReportSnippet({id, title, published, publisher, cover, indicators}) {
+  renderReportSnippet({id, title, published, publisher, cover, indicators, companies}) {
     return (
       <div className="report-snippet snippet" key={id}>
         <Link to={ `reports/${id}` }>
@@ -150,6 +150,7 @@ export default class StartPage extends Component {
             </div>
           </div>
           <Tags data={indicators} name="" prefix="indicators"/>
+          <Tags data={companies} name="" prefix="companies"/>
         </Link>
       </div>
     )
