@@ -7,7 +7,10 @@ export default class Content {
     this.client = contentful.createClient( { space, accessToken } );
   }
 
-  requestItems = (resolve, reject) => this.client.getEntries().then(resolve).catch(reject);
+  requestItems = (resolve, reject) => this.client.getEntries({
+    'content_type': 'articles',
+    //'fields.industries[match]': 'продуктовый ритейл'
+  }).then(resolve).catch(reject);
 
   requestItem = (resolve, reject, itemID) => this.client.getEntry(itemID).then(resolve).catch(reject);
 
