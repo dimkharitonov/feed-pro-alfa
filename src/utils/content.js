@@ -8,7 +8,7 @@ export default class Content {
   }
 
   requestItems = (resolve, reject) => this.client.getEntries({
-    'content_type': 'articles',
+    'content_type': 'article',
     //'fields.industries[match]': 'продуктовый ритейл'
   }).then(resolve).catch(reject);
 
